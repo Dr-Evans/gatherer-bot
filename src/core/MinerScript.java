@@ -12,10 +12,10 @@ import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 
-@ScriptManifest(author = "abotter", info = "Coal Miner", name = "AMiner", version = 0.3, logo = "")
+@ScriptManifest(author = "abotter", info = "Coal Miner", name = "AMiner", version = 0.4, logo = "")
 public class MinerScript extends Script{
 	MinerConfigFrame configFrame;
-	Miner selectedMiner = new MiningGuildMiner(this);
+	Miner selectedMiner = new BarbarianVillageMiner(this);
 
 	@Override
 	public void onStart() {

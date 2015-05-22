@@ -111,6 +111,7 @@ public abstract class Miner {
 		WALK_TO_MINE, WALK_TO_BANK, MINE, BANK, DEPOSIT
 	}
 	
+	//TODO: Make more robust
 	protected RS2Object selectVein() {
 		return getScript().objects.closest(getVeinIDs());
 	};
