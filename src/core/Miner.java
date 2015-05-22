@@ -35,19 +35,19 @@ public abstract class Miner {
 			case BANK:
 				bank();
 				break;
+			case DEPOSIT:
+				deposit();
+				break;
 			case MINE:
 				if (!getScript().myPlayer().isAnimating() && !getScript().myPlayer().isMoving()) {
 					mine();
 				}
 				break;
-			case ERROR:
-				error();
-				break;
 			default:
 				break;
 		}
 	}
-	
+
 	public State getState() {
 		final Player player = getScript().myPlayer();
 		final boolean isInvFull = getScript().inventory.isFull();
@@ -58,15 +58,22 @@ public abstract class Miner {
 			if (isPlayerInMine) {
 				return State.MINE;
 			}
-			
-			return State.WALK_TO_MINE;
+			else {
+				return State.WALK_TO_MINE;
+			}
 		}
 		else {
 			if (isPlayerInBank) {
-				return State.BANK;
+				if (!getScript().bank.isOpen()) {
+					return State.BANK;
+				}
+				else {
+					return State.DEPOSIT;
+				}
 			}
-			
-			return State.WALK_TO_BANK;
+			else {
+				return State.WALK_TO_BANK;
+			}
 		}
 	};
 
@@ -78,14 +85,13 @@ public abstract class Miner {
 		RS2Object bankBooth = getScript().objects.closest("Bank booth");
 		
 	    if (bankBooth != null) {
-	        if (bankBooth.interact("Bank")) {
-	        	//Sleep until bank is open
-	            while (!getScript().bank.isOpen()) getScript().sleep(500);
-	            
-	            getScript().bank.depositAll();
-	        }
+            bankBooth.interact("Bank");
 	    }
 	};
+	
+	private void deposit() {
+		getScript().bank.depositAll();
+	}
 	
 	protected void mine() {
 		//TODO: Refine this if to stop mining if other miner is there or vein is already mined
@@ -102,7 +108,7 @@ public abstract class Miner {
 	}
 
 	protected enum State {
-		WALK_TO_MINE, WALK_TO_BANK, MINE, BANK, ERROR //LOOKING_FOR_VEIN, MINING, LOOKING_FOR_BANK, BANKING
+		WALK_TO_MINE, WALK_TO_BANK, MINE, BANK, DEPOSIT
 	}
 	
 	protected RS2Object selectVein() {
@@ -123,11 +129,11 @@ public abstract class Miner {
 	
 	protected boolean walkTile(Position p) throws InterruptedException {
 		getScript().mouse.move(new MiniMapTileDestination(getScript().bot, p), false);
-		getScript().sleep(getScript().random(150, 250));
+		Script.sleep(Script.random(150, 250));
 		getScript().mouse.click(false);
 		int failsafe = 0;
 		while (failsafe < 10 && getScript().myPlayer().getPosition().distance(p) > 2) {
-			getScript().sleep(200);
+			Script.sleep(200);
 			failsafe++;
 			if (getScript().myPlayer().isMoving())
 				failsafe = 0;
