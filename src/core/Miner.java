@@ -80,23 +80,20 @@ public abstract class Miner {
 	    if (bankBooth != null) {
 	        if (bankBooth.interact("Bank")) {
 	        	//Sleep until bank is open
-	            while (!getScript().bank.isOpen()) getScript().sleep(250);
+	            while (!getScript().bank.isOpen()) getScript().sleep(500);
 	            
 	            getScript().bank.depositAll();
 	        }
 	    }
 	};
 	
-	protected boolean mine() {
+	protected void mine() {
 		//TODO: Refine this if to stop mining if other miner is there or vein is already mined
 		RS2Object vein = selectVein();
         
-		//Not sure if I like the short-circuit fanciness yet
-		if (vein != null) { //&& !vein.interact("Mine")) {
-			return vein.interact("Mine");
+		if (vein != null) { 
+			vein.interact("Mine");
         }
-		
-		return false;
 	};
 	
 	protected void error() {

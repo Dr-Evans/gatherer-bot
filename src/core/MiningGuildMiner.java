@@ -4,7 +4,6 @@ import org.osbot.rs07.api.model.RS2Object;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.utility.Area;
 
-import core.Miner.State;
 import utils.Constants;
 
 public class MiningGuildMiner extends Miner{
@@ -113,24 +112,22 @@ public class MiningGuildMiner extends Miner{
 	
 	private WalkToMineSubstate getWalkToMineSubstate() {
 		final Player player = getScript().myPlayer();
-		final boolean isPlayerInBank = getBankArea().contains(player);
 		final boolean isPlayerNearUpperLadders = Constants.MINING_GUILD_UPPER_LADDERS.contains(player);
 		final boolean isPlayerNearLowerLadders = Constants.MINING_GUILD_LOWER_LADDERS.contains(player);
 		
-		if (isPlayerInBank) {
-			return WalkToMineSubstate.WALK_TO_UPPER_LADDERS;
+		if (isPlayerNearLowerLadders) {
+			return WalkToMineSubstate.WALK_TO_RANDOM_POSITION_IN_MINE;
 		}
 		else if (isPlayerNearUpperLadders) {
 			return WalkToMineSubstate.INTERACT_WITH_UPPER_LADDERS;
 		}
 		else {
-			return WalkToMineSubstate.WALK_TO_RANDOM_POSITION_IN_MINE;
+			return WalkToMineSubstate.WALK_TO_UPPER_LADDERS;
 		}
 	}
 	
 	private WalkToBankSubstate getWalkToBankSubstate() {
 		final Player player = getScript().myPlayer();
-		final boolean isPlayerNearUpperLadders = Constants.MINING_GUILD_UPPER_LADDERS.contains(player);
 		final boolean isPlayerNearLowerLadders = Constants.MINING_GUILD_LOWER_LADDERS.contains(player);
 		final boolean isPlayerInMine = getMineArea().contains(player);
 		
