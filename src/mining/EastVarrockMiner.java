@@ -1,42 +1,39 @@
-package core;
+package mining;
 
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.utility.Area;
 
+import utils.Constants;
+
 public class EastVarrockMiner extends Miner {
 
-	EastVarrockMiner(Script script) {
+	public EastVarrockMiner(Script script) {
 		super(script);
 	}
 
 	@Override
 	protected Area getMineArea() {
-		// TODO Auto-generated method stub
-		return null;
+		return Constants.EAST_VARROCK_VEIN_AREA;
 	}
 
 	@Override
 	protected Area getBankArea() {
-		// TODO Auto-generated method stub
-		return null;
+		return Constants.EAST_VARROCK_BANK;
 	}
 
 	@Override
 	protected void walkToMine() throws InterruptedException {
-		// TODO Auto-generated method stub
-		
+		traversePath(Constants.PATH_FROM_EAST_VARROCK_BANK_TO_BARBARIAN_VILLAGE_VEINS, false);
 	}
 
 	@Override
 	protected void walkToBank() throws InterruptedException {
-		// TODO Auto-generated method stub
-		
+		traversePath(Constants.PATH_FROM_EAST_VARROCK_BANK_TO_BARBARIAN_VILLAGE_VEINS, true);
 	}
 
 	@Override
 	protected int[] getVeinIDs() {
-		// TODO Auto-generated method stub
-		return null;
+		return Constants.EAST_VARROCK_VEIN_IDS;
 	}
 
 }

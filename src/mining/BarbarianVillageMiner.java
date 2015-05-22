@@ -1,4 +1,4 @@
-package core;
+package mining;
 
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.utility.Area;
@@ -9,7 +9,7 @@ public class BarbarianVillageMiner extends Miner {
 
 	//TODO: MAKE STATE TO GET OUT OF STRONGHOLD OF SECURITY!!!
 	//TODO: MAKE STATE WHEN ACCIDENTLY ATTACKING BARBARIANS
-	BarbarianVillageMiner(Script script) {
+	public BarbarianVillageMiner(Script script) {
 		super(script);
 	}
 

@@ -13,6 +13,9 @@ public class Constants {
 	public static final Area BARBARIAN_VILLAGE_VEIN_AREA = new Area(3077, 3416, 3086, 3425);
 	public static final Area WEST_VARROCK_BANK = new Area(3178, 3431, 3185, 3446);
 	
+	public static final Area EAST_VARROCK_BANK = new Area(3250, 3419, 3257, 3423);
+	public static final Area EAST_VARROCK_VEIN_AREA = new Area(3278, 3360, 3291, 3372);
+	
 	/* VEIN IDS */
 	public static final int[] MINING_GUILD_VEIN_IDS = {
 		13714, 13706, //COAL 
@@ -22,6 +25,12 @@ public class Constants {
 	public static final int[] BARBARIAN_VILLAGE_VEIN_IDS = {
 		14860, 14861, 14862, //COAL
 		14863, 14864 		 //TIN
+	};
+	
+	public static final int[] EAST_VARROCK_VEIN_IDS = {
+		13447, 13448, 13449, //TIN
+		13450, 13451, 13452, //COPPER
+		13444, 13445, 13456  //IRON
 	};
 	
 	/* PATHS */
@@ -40,5 +49,15 @@ public class Constants {
 		new Position(3113, 3420, 0), //Path before bridge
 		new Position(3098, 3420, 0), //Bridge
 		new Position(3084, 3420, 0)  //Barbarian Village
+	};
+	
+	public static final Position[] PATH_FROM_EAST_VARROCK_BANK_TO_BARBARIAN_VILLAGE_VEINS = {
+		new Position(3254, 3421, 0), //Inside bank
+		new Position(3258, 3428, 0),
+		new Position(3273, 3426, 0),
+		new Position(3282, 3415, 0),
+		new Position(3290, 3402, 0),
+		new Position(3290, 3385, 0),
+		new Position(3287, 3370, 0) //Inside veins
 	};
 }

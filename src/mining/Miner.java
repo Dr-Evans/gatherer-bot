@@ -1,4 +1,4 @@
-package core;
+package mining;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.api.model.Player;
 import org.osbot.rs07.api.model.RS2Object;
