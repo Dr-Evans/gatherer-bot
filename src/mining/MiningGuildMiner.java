@@ -7,7 +7,7 @@ import org.osbot.rs07.utility.Area;
 import utils.Constants;
 
 public class MiningGuildMiner extends Miner{
-	MiningGuildMiner(Script script) {
+	public MiningGuildMiner(Script script) {
 		super(script);
 	}
 	
@@ -20,7 +20,7 @@ public class MiningGuildMiner extends Miner{
 	}
 	
 	@Override
-	protected Area getMineArea() {
+	protected Area getResourceArea() {
 		return Constants.MINING_GUILD_VEIN_AREA;
 	}
 
@@ -30,7 +30,7 @@ public class MiningGuildMiner extends Miner{
 	}
 	
 	@Override
-	protected void walkToMine() throws InterruptedException {
+	protected void walkToResource() throws InterruptedException {
 		final WalkToMineSubstate substate = getWalkToMineSubstate();
 		
 		getScript().log("Current substate: " + substate.name());
@@ -74,7 +74,7 @@ public class MiningGuildMiner extends Miner{
 	}
 
 	@Override
-	protected int[] getVeinIDs() {
+	protected int[] getResourceIDs() {
 		return Constants.MINING_GUILD_VEIN_IDS;
 	}
 	
@@ -82,7 +82,7 @@ public class MiningGuildMiner extends Miner{
 		traversePath(Constants.PATH_FROM_FALADOR_BANK_TO_MINING_GUILD_LADDERS, false);
 	}
 	
-	private void interactWithUpperLadders() {
+	private void interactWithUpperLadders() throws InterruptedException {
 		RS2Object ladder = getScript().objects.closest("Ladder");
 		
 		if (ladder != null) {
@@ -98,7 +98,7 @@ public class MiningGuildMiner extends Miner{
 		getScript().localWalker.walk(Constants.MINING_GUILD_LOWER_LADDERS.getRandomPosition(0));
 	}
 	
-	private void interactWithLowerLadders() {
+	private void interactWithLowerLadders() throws InterruptedException {
 		RS2Object ladder = getScript().objects.closest("Ladder");
 		
 		if (ladder != null) {
@@ -129,7 +129,7 @@ public class MiningGuildMiner extends Miner{
 	private WalkToBankSubstate getWalkToBankSubstate() {
 		final Player player = getScript().myPlayer();
 		final boolean isPlayerNearLowerLadders = Constants.MINING_GUILD_LOWER_LADDERS.contains(player);
-		final boolean isPlayerInMine = getMineArea().contains(player);
+		final boolean isPlayerInMine = getResourceArea().contains(player);
 		
 		if (isPlayerInMine) {
 			return WalkToBankSubstate.WALK_TO_LOWER_LADDERS;
@@ -140,5 +140,10 @@ public class MiningGuildMiner extends Miner{
 		else {
 			return WalkToBankSubstate.WALK_TO_RANDOM_POSITION_IN_BANK;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Mining Guild Miner";
 	}
 }

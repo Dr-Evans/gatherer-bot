@@ -2,11 +2,11 @@ package gui;
 import javax.swing.JFrame;
 
 
-public class MinerConfigFrame extends JFrame{
+public class GathererConfigFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 //	private JButton applyButton;
 
-	public MinerConfigFrame() {
+	public GathererConfigFrame() {
 		initUI();
 	}
 	

@@ -12,7 +12,7 @@ public class EastVarrockMiner extends Miner {
 	}
 
 	@Override
-	protected Area getMineArea() {
+	protected Area getResourceArea() {
 		return Constants.EAST_VARROCK_VEIN_AREA;
 	}
 
@@ -22,7 +22,7 @@ public class EastVarrockMiner extends Miner {
 	}
 
 	@Override
-	protected void walkToMine() throws InterruptedException {
+	protected void walkToResource() throws InterruptedException {
 		traversePath(Constants.PATH_FROM_EAST_VARROCK_BANK_TO_BARBARIAN_VILLAGE_VEINS, false);
 	}
 
@@ -32,8 +32,13 @@ public class EastVarrockMiner extends Miner {
 	}
 
 	@Override
-	protected int[] getVeinIDs() {
+	protected int[] getResourceIDs() {
 		return Constants.EAST_VARROCK_VEIN_IDS;
+	}
+	
+	@Override
+	public String toString() {
+		return "East Varrock Miner";
 	}
 
 }

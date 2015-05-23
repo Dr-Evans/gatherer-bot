@@ -14,7 +14,7 @@ public class BarbarianVillageMiner extends Miner {
 	}
 
 	@Override
-	protected Area getMineArea() {
+	protected Area getResourceArea() {
 		return Constants.BARBARIAN_VILLAGE_VEIN_AREA;
 	}
 
@@ -24,7 +24,7 @@ public class BarbarianVillageMiner extends Miner {
 	}
 
 	@Override
-	protected void walkToMine() throws InterruptedException {
+	protected void walkToResource() throws InterruptedException {
 		traversePath(Constants.PATH_FROM_WEST_VARROCK_BANK_TO_BARBARIAN_VILLAGE_VEINS, false);
 	}
 
@@ -34,8 +34,13 @@ public class BarbarianVillageMiner extends Miner {
 	}
 
 	@Override
-	protected int[] getVeinIDs() {
+	protected int[] getResourceIDs() {
 		return Constants.BARBARIAN_VILLAGE_VEIN_IDS;
+	}
+	
+	@Override
+	public String toString() {
+		return "Barbarian Village Miner";
 	}
 
 }
