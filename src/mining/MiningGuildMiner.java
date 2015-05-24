@@ -144,6 +144,6 @@ public class MiningGuildMiner extends Miner{
 	
 	@Override
 	public String toString() {
-		return "Mining Guild Miner";
+		return "Mining Guild " + super.toString();
 	}
 }

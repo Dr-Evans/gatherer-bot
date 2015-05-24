@@ -1,6 +1,6 @@
 package mining;
 
-import org.osbot.rs07.api.model.RS2Object;
+import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.script.Script;
 
@@ -17,8 +17,7 @@ public abstract class Miner extends Gatherer {
 	}
 	
 	protected void gather() {
-		//TODO: Refine this if to stop mining if other miner is there or vein is already mined
-		RS2Object vein = selectResource();
+		Entity vein = selectResource();
         
 		if (vein != null) { 
 			vein.interact("Mine");

@@ -1,5 +1,6 @@
 package core;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.Player;
 import org.osbot.rs07.api.model.RS2Object;
 import org.osbot.rs07.api.ui.Skill;
@@ -88,7 +89,7 @@ public abstract class Gatherer {
 	    }
 	};
 	
-	private void deposit() throws InterruptedException {
+	protected void deposit() throws InterruptedException {
 		getScript().bank.depositAll();
 	}
 	
@@ -102,7 +103,7 @@ public abstract class Gatherer {
 	}
 	
 	//TODO: Make more robust
-	protected RS2Object selectResource() {
+	protected Entity selectResource() {
 		return getScript().objects.closest(getResourceIDs());
 	};
 	
