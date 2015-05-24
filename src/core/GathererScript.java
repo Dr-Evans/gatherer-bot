@@ -15,8 +15,8 @@ import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 
-@ScriptManifest(author = "abotter", info = "Coal Miner", name = "AMiner", version = 0.5, logo = "")
-public class GathererScript extends Script{
+@ScriptManifest(author = "abotter", info = "Gathering script", name = "AGatherer", version = 0.5, logo = "")
+public class GathererScript extends Script {
 	private static final int cursorDimension = 12;
 	private static final int cursorValue = cursorDimension / 2;
 	GathererConfigFrame configFrame;
@@ -24,15 +24,15 @@ public class GathererScript extends Script{
 
 	@Override
 	public void onStart() {
-		log("AMINER STARTED");
+		log("AGatherer started");
 		
-		experienceTracker.start(Skill.MINING);
+		experienceTracker.start(gatherer.getSkill());
 		
 //		EventQueue.invokeLater(new Runnable() {
 //	        
 //            @Override
 //            public void run() {
-//            	configFrame = new MinerConfigFrame();
+//            	configFrame = new GathererConfigFrame();
 //            	configFrame.setVisible(true);
 //            }
 //        });
@@ -52,7 +52,7 @@ public class GathererScript extends Script{
 	
 	@Override
 	public void onExit() {
-		log("AMINER EXITED");
+		log("AGatherer exited.");
 		configFrame.dispatchEvent(new WindowEvent(configFrame, WindowEvent.WINDOW_CLOSING));
 	}
 	
@@ -71,12 +71,12 @@ public class GathererScript extends Script{
 	}
 	
 	private void drawInfo(Graphics2D g) {
-		final String aMiner = "AMiner - " + gatherer;
+		final String aMiner = "AGatherer - " + gatherer;
 		final String state = "State = " + gatherer.getState();
-		final String runningTime = "Time Running = " + LocalTime.ofSecondOfDay(TimeUnit.MILLISECONDS.toSeconds(experienceTracker.getElapsed(Skill.MINING))).toString();
-		final String totalGainedXP = "Total EXP Gained = " + experienceTracker.getGainedXP(Skill.MINING) + " XP (" + experienceTracker.getGainedLevels(Skill.MINING) + " levels)";
-		final String gainedXPPerHour = "EXP/Hour = " + experienceTracker.getGainedXPPerHour(Skill.MINING);
-		final String timeToLevel = "Time to Level = " + LocalTime.ofSecondOfDay(TimeUnit.MILLISECONDS.toSeconds(experienceTracker.getTimeToLevel(Skill.MINING))).toString();
+		final String runningTime = "Time Running = " + LocalTime.ofSecondOfDay(TimeUnit.MILLISECONDS.toSeconds(experienceTracker.getElapsed(gatherer.getSkill()))).toString();
+		final String totalGainedXP = "Total EXP Gained = " + experienceTracker.getGainedXP(gatherer.getSkill()) + " XP (" + experienceTracker.getGainedLevels(gatherer.getSkill()) + " levels)";
+		final String gainedXPPerHour = "EXP/Hour = " + experienceTracker.getGainedXPPerHour(gatherer.getSkill());
+		final String timeToLevel = "Time to Level = " + LocalTime.ofSecondOfDay(TimeUnit.MILLISECONDS.toSeconds(experienceTracker.getTimeToLevel(gatherer.getSkill()))).toString();
 		
 		g.drawString(aMiner, 7, 28);
 		g.drawString(state, 7, 40);

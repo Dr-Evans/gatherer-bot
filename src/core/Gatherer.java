@@ -2,6 +2,7 @@ package core;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.api.model.Player;
 import org.osbot.rs07.api.model.RS2Object;
+import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.input.mouse.MiniMapTileDestination;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.utility.Area;
@@ -14,6 +15,7 @@ public abstract class Gatherer {
 		this.script = script;
 	}
 	
+	public abstract Skill getSkill();
 	protected abstract Area getResourceArea();
 	protected abstract Area getBankArea();
 	protected abstract void walkToResource() throws InterruptedException;
@@ -22,10 +24,6 @@ public abstract class Gatherer {
 	protected abstract int[] getResourceIDs();
 	
 	public void execute() throws InterruptedException {
-		final State state = getState();
-		
-		getScript().log("Current state: " + state.name());
-		
 		switch (getState()){
 			case WALK_TO_RESOURCE:
 				walkToResource();

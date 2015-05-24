@@ -1,6 +1,7 @@
 package mining;
 
 import org.osbot.rs07.api.model.RS2Object;
+import org.osbot.rs07.api.ui.Skill;
 import org.osbot.rs07.script.Script;
 
 import core.Gatherer;
@@ -9,6 +10,10 @@ public abstract class Miner extends Gatherer {
 
 	Miner(Script script) {
 		super(script);
+	}
+	
+	public Skill getSkill() {
+		return Skill.MINING;
 	}
 	
 	protected void gather() {
