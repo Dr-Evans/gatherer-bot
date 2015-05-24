@@ -70,7 +70,12 @@ public class Constants {
 	/* PATHS */
 	public static final Position[] PATH_FROM_FALADOR_BANK_TO_MINING_GUILD_LADDERS = {
 		new Position(3012, 3356, 0), //In Falador East Bank
-		new Position(3026, 3350, 0), //Stone path
+		new Position(3016, 3359, 0),
+		new Position(3022, 3357, 0),
+		new Position(3025, 3352, 0),
+		new Position(3028, 3347, 0),
+		new Position(3029, 3342, 0),
+		new Position(3027, 3337, 0),
 		new Position(3021, 3338, 0)  //In front of ladders
 	};
 	
