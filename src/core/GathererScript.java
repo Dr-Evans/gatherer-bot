@@ -1,5 +1,4 @@
 package core;
-import fishing.DraynorNetFisher;
 import gui.GathererConfigFrame;
 
 import java.awt.Color;
@@ -10,6 +9,8 @@ import java.awt.event.WindowEvent;
 import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
+import mining.MiningGuildMiner;
+
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 
@@ -18,7 +19,7 @@ public class GathererScript extends Script {
 	private static final int cursorDimension = 12;
 	private static final int cursorValue = cursorDimension / 2;
 	GathererConfigFrame configFrame;
-	Gatherer gatherer = new DraynorNetFisher(this);
+	Gatherer gatherer = new MiningGuildMiner(this);
 
 	@Override
 	public void onStart() {

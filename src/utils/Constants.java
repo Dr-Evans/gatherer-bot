@@ -20,6 +20,11 @@ public class Constants {
 	
 	/* FISHING AREAS */
 	public static final Area DRAYNOR_FISHING_AREA = new Area(3084, 3226, 3089, 3232);
+	public static final Area PORT_SARIM_KARAMJA_SAILORS_AREA = new Area(3024, 3214, 3029, 3221);
+	public static final Area KARAMJA_PORT = new Area(2952, 3146, 2959, 3156);
+	public static final Area KARAMJA_FISHING_AREA = new Area(2921, 3174, 2925, 3180);
+	public static final Area KARAMJA_BOAT = new Area(2955, 3142, 2957, 3143);
+	public static final Area PORT_SARIM_BOAT = new Area(3032, 3216, 3033, 3218);
 	
 	
 	
@@ -44,6 +49,21 @@ public class Constants {
 	/* FISHING IDS */
 	public static final int[] DRAYNOR_FISHING_SPOT_IDS = {
 		1525
+	};
+	
+	public static final int[] KARAMJA_FISHING_SPOT_IDS = {
+		1521, //Net, Bait
+		1522  //Cage, harpoon
+	};
+	
+	public static final String[] PORT_SARIM_KARAMJA_SAILORS = {
+		"Seaman Lorris",
+		"Seaman Thresnor",
+		"Captain Tobias"
+	};
+	
+	public static final String[] KARAMJA_PORT_SAILORS = {
+		"Customs officer"
 	};
 	
 	
@@ -76,9 +96,27 @@ public class Constants {
 	};
 	
 	public static final Position[] PATH_FROM_DRAYNOR_BANK_TO_DRAYNOR_FISHING_AREA = {
-		new Position(3092, 3245, 0),
+		new Position(3092, 3245, 0), //inside bank
 		new Position(3087, 3239, 0),
-		new Position(3086, 3231, 0)
+		new Position(3086, 3231, 0)  //inside fishing area
 		
+	};
+	
+	public static final Position[] PATH_FROM_DRAYNOR_BANK_TO_KARAMJA_SAILORS = {
+		new Position(3093, 3244, 0), //inside bank
+		new Position(3080, 3250, 0), //market
+		new Position(3074, 3264, 0),
+		new Position(3059, 3264, 0),
+		new Position(3053, 3250, 0),
+		new Position(3041, 3242, 0),
+		new Position(3028, 3234, 0),
+		new Position(3027, 3218, 0)  //karamja sailor area
+	};
+	
+	public static final Position[] PATH_FROM_KARAMJA_PORT_TO_KARAMJA_DOCK = {
+		new Position(2953, 3146, 0), //in dock
+		new Position(2938, 3146, 0),
+		new Position(2918, 3158, 0),
+		new Position(2924, 3175, 0)  //in dock
 	};
 }

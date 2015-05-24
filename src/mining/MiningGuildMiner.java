@@ -78,11 +78,11 @@ public class MiningGuildMiner extends Miner{
 		return Constants.MINING_GUILD_VEIN_IDS;
 	}
 	
-	private void walkToUpperLadders() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_FALADOR_BANK_TO_MINING_GUILD_LADDERS, false);
+	private void walkToUpperLadders() {
+		getScript().localWalker.walkPath(Constants.PATH_FROM_FALADOR_BANK_TO_MINING_GUILD_LADDERS);
 	}
 	
-	private void interactWithUpperLadders() throws InterruptedException {
+	private void interactWithUpperLadders() {
 		RS2Object ladder = getScript().objects.closest("Ladder");
 		
 		if (ladder != null) {
@@ -90,11 +90,11 @@ public class MiningGuildMiner extends Miner{
 		}
 	}
 	
-	private void walkToRandomPositionInMine() throws InterruptedException {
+	private void walkToRandomPositionInMine() {
 		getScript().localWalker.walk(Constants.MINING_GUILD_VEIN_AREA.getRandomPosition(0));
 	}
 	
-	private void walkToLowerLadders() throws InterruptedException {
+	private void walkToLowerLadders() {
 		getScript().localWalker.walk(Constants.MINING_GUILD_LOWER_LADDERS.getRandomPosition(0));
 	}
 	
