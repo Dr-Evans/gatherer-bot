@@ -23,12 +23,12 @@ public class DraynorNetFisher extends SmallNetFisher {
 
 	@Override
 	protected void walkToResource() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_DRAYNOR_BANK_TO_DRAYNOR_FISHING_AREA, false);
+		getScript().localWalker.walkPath(Constants.PATH_FROM_DRAYNOR_BANK_TO_DRAYNOR_FISHING_AREA);
 	}
 
 	@Override
 	protected void walkToBank() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_DRAYNOR_BANK_TO_DRAYNOR_FISHING_AREA, true);
+		getScript().localWalker.walkPath(Constants.reversePath(Constants.PATH_FROM_DRAYNOR_BANK_TO_DRAYNOR_FISHING_AREA));
 	}
 
 	@Override

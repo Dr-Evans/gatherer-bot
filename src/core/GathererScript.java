@@ -1,5 +1,5 @@
 package core;
-import fishing.KaramjaLobsterFisher;
+import fishing.DraynorNetFisher;
 import gui.GathererConfigFrame;
 
 import java.awt.Color;
@@ -18,7 +18,7 @@ public class GathererScript extends Script {
 	private static final int cursorDimension = 12;
 	private static final int cursorValue = cursorDimension / 2;
 	GathererConfigFrame configFrame;
-	Gatherer gatherer = new KaramjaLobsterFisher(this);
+	Gatherer gatherer = new DraynorNetFisher(this);
 
 	@Override
 	public void onStart() {
