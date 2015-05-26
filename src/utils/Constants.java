@@ -20,7 +20,8 @@ public class Constants {
 	
 	/* FISHING AREAS */
 	public static final Area DRAYNOR_FISHING_AREA = new Area(3084, 3226, 3089, 3232);
-	public static final Area PORT_SARIM_KARAMJA_SAILORS_AREA = new Area(3024, 3214, 3029, 3221);
+	public static final Area PORT_SARIM_KARAMJA_SAILORS_AREA = new Area(3024, 3214, 3029, 3223);
+	public static final Area PORT_SARIM_DEPOSIT_BOX = new Area(3043, 3234, 3047, 3237);
 	public static final Area KARAMJA_PORT = new Area(2952, 3146, 2959, 3156);
 	public static final Area KARAMJA_FISHING_AREA = new Area(2921, 3174, 2925, 3180);
 	public static final Area KARAMJA_BOAT = new Area(2955, 3142, 2957, 3143);
@@ -52,7 +53,7 @@ public class Constants {
 	};
 	
 	public static final int[] KARAMJA_FISHING_SPOT_IDS = {
-		1521, //Net, Bait
+		//1521, //Net, Bait TODO:FIX THIS!
 		1522  //Cage, harpoon
 	};
 	
@@ -107,21 +108,44 @@ public class Constants {
 		
 	};
 	
-	public static final Position[] PATH_FROM_DRAYNOR_BANK_TO_KARAMJA_SAILORS = {
-		new Position(3093, 3244, 0), //inside bank
-		new Position(3080, 3250, 0), //market
-		new Position(3074, 3264, 0),
-		new Position(3059, 3264, 0),
-		new Position(3053, 3250, 0),
-		new Position(3041, 3242, 0),
-		new Position(3028, 3234, 0),
-		new Position(3027, 3218, 0)  //karamja sailor area
+	public static final Position[] PATH_FROM_PORT_SARIM_DEPOSIT_BOX_TO_KARAMJA_SAILORS = {
+		new Position(3045, 3235, 0), //in front of box
+		new Position(3037, 3236, 0),
+		new Position(3030, 3236, 0),
+		new Position(3028, 3231, 0),
+		new Position(3028, 3222, 0)  //next to sailors
 	};
 	
 	public static final Position[] PATH_FROM_KARAMJA_PORT_TO_KARAMJA_DOCK = {
-		new Position(2953, 3146, 0), //in dock
+		new Position(2953, 3146, 0), //in port
+		new Position(2947, 3146, 0),
 		new Position(2938, 3146, 0),
-		new Position(2918, 3158, 0),
+		new Position(2935, 3146, 0),
+		new Position(2928, 3148, 0),
+		new Position(2921, 3150, 0),
+		new Position(2916, 3153, 0),
+		new Position(2919, 3159, 0),
+		new Position(2920, 3166, 0),
+		new Position(2921, 3172, 0),
 		new Position(2924, 3175, 0)  //in dock
 	};
+	
+	public static Position[] reversePath(Position[] array) {
+		Position[] newArray = array.clone();
+         if (newArray == null) {
+             return null;
+         }
+         int i = 0;
+         int j = newArray.length - 1;
+        Position tmp;
+        while (j > i) {
+            tmp = newArray[j];
+            newArray[j] = newArray[i];
+            newArray[i] = tmp;
+            j--;
+            i++;
+        }
+        
+        return newArray;
+    }
 }

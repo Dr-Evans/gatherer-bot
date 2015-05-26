@@ -15,7 +15,7 @@ public abstract class Gatherer {
 	
 	protected Gatherer(Script script) {
 		this.script = script;
-		this.isDropper = true;
+		this.isDropper = false; //TODO: CHANGE THIS
 	}
 	
 	public abstract Skill getSkill();
@@ -73,11 +73,11 @@ public abstract class Gatherer {
 			}
 			else {
 				if (isPlayerInBank) {
-					if (!getScript().bank.isOpen()) {
-						return State.BANK;
+					if (getScript().bank.isOpen() || getScript().depositBox.isOpen()) {
+						return State.DEPOSIT;
 					}
 					else {
-						return State.DEPOSIT;
+						return State.BANK;
 					}
 				}
 				else {

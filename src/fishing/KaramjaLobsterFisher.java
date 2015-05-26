@@ -13,20 +13,34 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 	public KaramjaLobsterFisher(Script script) {
 		super(script);
 	}
+	
+	@Override
+	protected void bank() throws InterruptedException{
+		RS2Object bankBooth = getScript().objects.closest("Bank deposit box");
+		
+	    if (bankBooth != null) {
+            bankBooth.interact("Deposit");
+	    }
+	};
+	
+	@Override
+	protected void deposit() {
+		getScript().depositBox.depositAllExcept("Lobster pot", "Coins");
+	}
 
 	private enum WalkToResourceSubstate {
 		WALK_TO_PORT_SARIM_SAILORS, TALK_TO_PORT_SARIM_SAILORS, CROSS_GANGPLANK, WALK_TO_KARAMJA_DOCK
 	}
 	
 	private enum WalkToBankSubstate {
-		WALK_TO_KARAMJA_SAILORS, TALK_TO_KARAMJA_SAILORS, CROSS_GANGPLANK, WALK_TO_BANK
+		WALK_TO_KARAMJA_SAILORS, TALK_TO_KARAMJA_SAILORS, CROSS_GANGPLANK, WALK_TO_DEPOSIT_BOX
 	}
 	
 	protected WalkToResourceSubstate getWalkToResourceSubstate() {
 		final Player player = getScript().myPlayer();
 		final boolean isPlayerInPortSarim = Constants.PORT_SARIM_KARAMJA_SAILORS_AREA.contains(player);
 		final boolean isPlayerInKaramjaBoat = Constants.KARAMJA_BOAT.contains(player);
-		final boolean isPlayerInKaramjaDock = Constants.KARAMJA_PORT.contains(player);
+		final boolean isPlayerInKaramjaPort = Constants.KARAMJA_PORT.contains(player);
 		
 		if (isPlayerInPortSarim) {
 			return WalkToResourceSubstate.TALK_TO_PORT_SARIM_SAILORS;
@@ -34,7 +48,7 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 		else if (isPlayerInKaramjaBoat) {
 			return WalkToResourceSubstate.CROSS_GANGPLANK;
 		}
-		else if (isPlayerInKaramjaDock) {
+		else if (isPlayerInKaramjaPort) {
 			return WalkToResourceSubstate.WALK_TO_KARAMJA_DOCK;
 		}
 		else {
@@ -59,7 +73,7 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 			return WalkToBankSubstate.CROSS_GANGPLANK;
 		}
 		else {
-			return WalkToBankSubstate.WALK_TO_BANK;
+			return WalkToBankSubstate.WALK_TO_DEPOSIT_BOX;
 		}
 	}
 	
@@ -70,7 +84,7 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 
 	@Override
 	protected Area getBankArea() {
-		return Constants.DRAYNOR_BANK;
+		return Constants.PORT_SARIM_DEPOSIT_BOX;
 	}
 
 	@Override
@@ -94,8 +108,8 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 		
 	}
 
-	private void walkToPortSarimSailors() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_DRAYNOR_BANK_TO_KARAMJA_SAILORS, false);
+	private void walkToPortSarimSailors() {
+		getScript().localWalker.walkPath(Constants.PATH_FROM_PORT_SARIM_DEPOSIT_BOX_TO_KARAMJA_SAILORS);
 	}
 	
 	private void talkToPortSarimSailors() {
@@ -114,8 +128,8 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 		}
 	}
 	
-	private void walkToKaramjaDock() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_KARAMJA_PORT_TO_KARAMJA_DOCK, false);
+	private void walkToKaramjaDock() {
+		getScript().localWalker.walkPath(Constants.PATH_FROM_KARAMJA_PORT_TO_KARAMJA_DOCK);
 	}
 
 	@Override
@@ -131,14 +145,14 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 			case CROSS_GANGPLANK:
 				crossGangplank();
 				break;
-			case WALK_TO_BANK:
-				walkToDraynorBank();
+			case WALK_TO_DEPOSIT_BOX:
+				walkToDepositBox();
 				break;
 		}
 	}
 	
-	private void walkToKaramjaSailors() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_KARAMJA_PORT_TO_KARAMJA_DOCK, true);
+	private void walkToKaramjaSailors() {
+		getScript().localWalker.walkPath(Constants.reversePath(Constants.PATH_FROM_KARAMJA_PORT_TO_KARAMJA_DOCK));
 	}
 	
 	private void talkToKaramjaSailors() {
@@ -149,13 +163,12 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 		}
 	}
 	
-	private void walkToDraynorBank() throws InterruptedException {
-		traversePath(Constants.PATH_FROM_DRAYNOR_BANK_TO_KARAMJA_SAILORS, true);
+	private void walkToDepositBox() {
+		getScript().localWalker.walkPath(Constants.reversePath(Constants.PATH_FROM_PORT_SARIM_DEPOSIT_BOX_TO_KARAMJA_SAILORS));
 	}
 
 	@Override
 	protected int[] getResourceIDs() {
 		return Constants.KARAMJA_FISHING_SPOT_IDS;
 	}
-
 }
