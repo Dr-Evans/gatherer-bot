@@ -15,7 +15,7 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 	}
 	
 	@Override
-	protected void bank() throws InterruptedException{
+	protected void bank() {
 		RS2Object bankBooth = getScript().objects.closest("Bank deposit box");
 		
 	    if (bankBooth != null) {
@@ -88,7 +88,7 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 	}
 
 	@Override
-	protected void walkToResource() throws InterruptedException {
+	protected void walkToResource() {
 		switch (getWalkToResourceSubstate()){
 			case WALK_TO_PORT_SARIM_SAILORS:
 				walkToPortSarimSailors();
@@ -133,8 +133,7 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 	}
 
 	@Override
-	protected void walkToBank() throws InterruptedException {
-		getScript().log(getWalkToBankSubstate());
+	protected void walkToBank() {
 		switch (getWalkToBankSubstate()){
 			case WALK_TO_KARAMJA_SAILORS:
 				walkToKaramjaSailors();
