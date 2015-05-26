@@ -4,7 +4,8 @@ import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.script.Script;
 
 public abstract class HarpoonFisher extends Fisher {
-
+	private static final String HARPOON_ITEM_NAME = "Harpoon";
+	
 	HarpoonFisher(Script script) {
 		super(script);
 	}
@@ -20,7 +21,12 @@ public abstract class HarpoonFisher extends Fisher {
 	
 	@Override
 	protected void deposit() {
-		getScript().bank.depositAllExcept("Harpoon");
+		getScript().bank.depositAllExcept(HARPOON_ITEM_NAME);
+	}
+	
+	@Override
+	protected void drop() {
+		getScript().inventory.dropAllExcept(HARPOON_ITEM_NAME);
 	}
 	
 	@Override

@@ -11,9 +11,11 @@ import org.osbot.rs07.utility.Area;
 
 public abstract class Gatherer {
 	private Script script;
+	private boolean isDropper;
 	
 	protected Gatherer(Script script) {
 		this.script = script;
+		this.isDropper = true;
 	}
 	
 	public abstract Skill getSkill();
@@ -43,6 +45,9 @@ public abstract class Gatherer {
 					gather();
 				}
 				break;
+			case DROP:
+				drop();
+				break;
 			default:
 				break;
 		}
@@ -63,16 +68,21 @@ public abstract class Gatherer {
 			}
 		}
 		else {
-			if (isPlayerInBank) {
-				if (!getScript().bank.isOpen()) {
-					return State.BANK;
-				}
-				else {
-					return State.DEPOSIT;
-				}
+			if (isDropper) {
+				return State.DROP;
 			}
 			else {
-				return State.WALK_TO_BANK;
+				if (isPlayerInBank) {
+					if (!getScript().bank.isOpen()) {
+						return State.BANK;
+					}
+					else {
+						return State.DEPOSIT;
+					}
+				}
+				else {
+					return State.WALK_TO_BANK;
+				}
 			}
 		}
 	};
@@ -89,8 +99,12 @@ public abstract class Gatherer {
 	    }
 	};
 	
-	protected void deposit() throws InterruptedException {
+	protected void deposit() {
 		getScript().bank.depositAll();
+	}
+	
+	protected void drop() {
+		getScript().inventory.dropAll();
 	}
 	
 	protected void error() {
@@ -99,7 +113,7 @@ public abstract class Gatherer {
 	}
 
 	protected enum State {
-		WALK_TO_RESOURCE, WALK_TO_BANK, GATHER, BANK, DEPOSIT
+		WALK_TO_RESOURCE, WALK_TO_BANK, GATHER, BANK, DEPOSIT, DROP
 	}
 	
 	//TODO: Make more robust

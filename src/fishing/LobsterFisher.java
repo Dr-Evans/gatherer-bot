@@ -4,6 +4,7 @@ import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.script.Script;
 
 public abstract class LobsterFisher extends Fisher{
+	private static final String LOBSTER_POT_ITEM_NAME = "Lobster pot";
 
 	LobsterFisher(Script script) {
 		super(script);
@@ -20,7 +21,12 @@ public abstract class LobsterFisher extends Fisher{
 	
 	@Override
 	protected void deposit() {
-		getScript().bank.depositAllExcept("Lobster pot", "Coins");
+		getScript().bank.depositAllExcept(LOBSTER_POT_ITEM_NAME, "Coins");
+	}
+	
+	@Override
+	protected void drop() {
+		getScript().inventory.dropAllExcept(LOBSTER_POT_ITEM_NAME, "Coins");
 	}
 	
 	@Override

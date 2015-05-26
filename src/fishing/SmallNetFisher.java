@@ -3,8 +3,9 @@ package fishing;
 import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.script.Script;
 
-public abstract class NetFisher extends Fisher {
-	NetFisher(Script script) {
+public abstract class SmallNetFisher extends Fisher {
+	private static final String SMALL_NET_ITEM_NAME = "Small fishing net";
+	SmallNetFisher(Script script) {
 		super(script);
 	}
 
@@ -19,7 +20,12 @@ public abstract class NetFisher extends Fisher {
 	
 	@Override
 	protected void deposit() {
-		getScript().bank.depositAllExcept("Small fishing net");
+		getScript().bank.depositAllExcept(SMALL_NET_ITEM_NAME);
+	}
+	
+	@Override
+	protected void drop() {
+		getScript().inventory.dropAllExcept(SMALL_NET_ITEM_NAME);
 	}
 	
 	@Override

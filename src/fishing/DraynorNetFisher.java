@@ -5,7 +5,7 @@ import org.osbot.rs07.utility.Area;
 
 import utils.Constants;
 
-public class DraynorNetFisher extends NetFisher {
+public class DraynorNetFisher extends SmallNetFisher {
 
 	public DraynorNetFisher(Script script) {
 		super(script);
