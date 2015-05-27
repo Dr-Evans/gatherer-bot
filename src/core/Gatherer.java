@@ -1,4 +1,6 @@
 package core;
+import java.util.HashMap;
+
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.Player;
@@ -8,14 +10,18 @@ import org.osbot.rs07.input.mouse.MiniMapTileDestination;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.utility.Area;
 
+import utils.Scriptable;
 
-public abstract class Gatherer {
+
+public abstract class Gatherer implements Scriptable {
 	private Script script;
-	private boolean isDropper;
+	private HashMap<String, Boolean> configuration;
 	
 	protected Gatherer(Script script) {
 		this.script = script;
-		this.isDropper = false; //TODO: CHANGE THIS
+		configuration = new HashMap<String, Boolean>();
+		
+		configuration.put("isDropper", false);
 	}
 	
 	public abstract Skill getSkill();
@@ -68,7 +74,7 @@ public abstract class Gatherer {
 			}
 		}
 		else {
-			if (isDropper) {
+			if (configuration.get("isDropper")) {
 				return State.DROP;
 			}
 			else {
@@ -87,7 +93,7 @@ public abstract class Gatherer {
 		}
 	};
 
-	protected Script getScript() {
+	public Script getScript() {
 		return script;
 	}
 	
@@ -147,6 +153,15 @@ public abstract class Gatherer {
 		if (failsafe == 10)
 			return false;
 		return true;
+	}
+	
+	//TODO: Right now this only works with booleans... well update this to Objects at some point
+	public HashMap<String, Boolean> getConfiguration() {
+		return configuration;
+	}
+	
+	public void setConfiguration(HashMap<String, Boolean> c) {
+		this.configuration = c;
 	}
 	
 	@Override

@@ -1,6 +1,10 @@
 package core;
-import fishing.DraynorNetFisher;
+import fishing.DraynorSmallNetFisher;
+import fishing.Fisher;
+import fishing.KaramjaLobsterFisher;
 import gui.GathererConfigFrame;
+import gui.GathererListener;
+import gui.GathererSubject;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,6 +14,11 @@ import java.awt.event.WindowEvent;
 import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
+import mining.BarbarianVillageMiner;
+import mining.EastVarrockMiner;
+import mining.Miner;
+import mining.MiningGuildMiner;
+
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 
@@ -18,20 +27,34 @@ public class GathererScript extends Script {
 	private static final int cursorDimension = 12;
 	private static final int cursorValue = cursorDimension / 2;
 	GathererConfigFrame configFrame;
-	Gatherer gatherer = new DraynorNetFisher(this);
+	Gatherer gatherer;// = new KaramjaLobsterFisher(this);
 
 	@Override
 	public void onStart() {
 		log("AGatherer started");
 		
-		experienceTracker.start(gatherer.getSkill());
+		//experienceTracker.start(gatherer.getSkill());
 		
 //		EventQueue.invokeLater(new Runnable() {
 //	        
 //            @Override
 //            public void run() {
-//            	configFrame = new GathererConfigFrame();
-//            	configFrame.setVisible(true);
+    	configFrame = new GathererConfigFrame(this);
+    	
+    	GathererSubject.addGathererListener(new GathererListener(){
+    		@Override
+    		public void onGathererStart(Gatherer g) {
+    			experienceTracker.start(g.getSkill());
+    			gatherer = g;
+    		}
+    		
+    		@Override
+    		public void onGathererStop(Gatherer g) {
+    			gatherer = null;
+    		}
+    	});
+    	
+    	configFrame.setVisible(true);
 //            }
 //        });
 	}
@@ -39,7 +62,9 @@ public class GathererScript extends Script {
 	@Override
 	public int onLoop() {
 		try {
-			gatherer.execute();
+			if (gatherer != null) {
+				gatherer.execute();
+			}
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace();
@@ -56,11 +81,17 @@ public class GathererScript extends Script {
 	
 	@Override
 	public void onPaint(Graphics2D g){
-		configGraphics(g);
-		drawInfo(g);
-		drawCursor(g);
-		
-		super.onPaint(g);
+		if (gatherer != null) {
+			configGraphics(g);
+			drawInfo(g);
+			drawCursor(g);
+			
+			super.onPaint(g);
+		}
+	}
+	
+	public void setGatherer(Gatherer gatherer) {
+		this.gatherer = gatherer;
 	}
 	
 	private void configGraphics(Graphics2D g) {
@@ -95,5 +126,20 @@ public class GathererScript extends Script {
 		
 		g.drawLine(xSub, ySub, xAdd, yAdd);
 		g.drawLine(xSub, yAdd, xAdd, ySub);
+	}
+	
+	public Fisher[] getFishers() {
+		return new Fisher[] {
+			new KaramjaLobsterFisher(this),
+			new DraynorSmallNetFisher(this)
+		};
+	}
+	
+	public Miner[] getMiners() {
+		return new Miner[] {
+			new MiningGuildMiner(this),
+			new EastVarrockMiner(this),
+			new BarbarianVillageMiner(this)
+		};
 	}
 }

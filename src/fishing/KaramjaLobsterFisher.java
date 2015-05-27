@@ -170,4 +170,9 @@ public class KaramjaLobsterFisher extends LobsterFisher{
 	protected int[] getResourceIDs() {
 		return Constants.KARAMJA_FISHING_SPOT_IDS;
 	}
+	
+	@Override
+	public String toString() {
+		return "Karamja " + super.toString();
+	}
 }
